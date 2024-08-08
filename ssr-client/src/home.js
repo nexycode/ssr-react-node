@@ -1,7 +1,9 @@
+// Home.js
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
+    console.log('Rendering Home component');
     return (
         <div>
             <Helmet>

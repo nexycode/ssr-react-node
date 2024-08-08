@@ -1,0 +1,31 @@
+{
+  "name": "ssr_folder",
+  "version": "1.0.0",
+  "homepage": "./ssr-client/build",
+  "workspaces": [
+    "ssr-client"
+  ],
+  "scripts": {
+    "start:server": "nodemon bootstrap.js",
+    "start:client": "cross-env PORT=3008 npm run start --workspace ssr-client",
+    "build:client": "npm run build --workspace ssr-client"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "express": "^4.19.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-scripts": "5.0.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/register": "^7.24.6",
+    "babel-plugin-dynamic-import-node": "^2.3.3",
+    "ignore-styles": "^5.0.1"
+  }
+}

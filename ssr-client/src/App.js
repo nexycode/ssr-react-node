@@ -1,19 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { Suspense } from 'react';
-import { lazy } from 'react';
-
-const HomeComponent = lazy(() => import("./home"));
-
-const LoadingScreen = () => <div>...Loading Screen</div>;
+import React from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
+import Home from './Home';
+import About from './About';
+import Contact from './Contact';
 
 function App() {
-  return (
-    <Suspense fallback={<LoadingScreen />}>
-      <div>Home Content</div>
-      <HomeComponent />
-    </Suspense>
-  );
+    return (
+        <div>
+            {/* Navigation Links */}
+            <nav>
+                <ul>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/about">About</Link></li>
+                    <li><Link to="/contact">Contact</Link></li>
+                </ul>
+            </nav>
+
+            {/* Routes */}
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+            </Routes>
+        </div>
+    );
 }
 
 export default App;

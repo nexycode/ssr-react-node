@@ -1,61 +1,45 @@
+import express from 'express';
+import path from 'path';
+import fs from 'fs'
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import path from 'path';
-import AppSSR from './ssr-client/src/AppSSR';
-import express from 'express';
-import fs from 'fs';
+import { StaticRouter } from 'react-router-dom/server';
+import App from './ssr-client/src/App';
 
 const app = express();
 const port = 3009;
-const bootstrapScripts = [];
-const bootstrapCSS = [];
 
-const staticPathRoot = path.join(__dirname, 'ssr-client/build/static');
+// Serve static files from the build directory
+const staticPath = path.join(__dirname, 'ssr-client/build');
+app.use(express.static(staticPath));
 
-// Function to populate the JS and CSS arrays
-const readDirectoryContentToArray = (folderPath, array) => {
-    fs.readdir(folderPath, (err, files) => {
-        if (err) {
-            console.log(`Unable to scan this folder ${folderPath}: ${err.message}`);
-            return;
-        }
+app.get('*', (req, res) => {
+    const context = {};
 
-        files.forEach((fileName) => {
-            if ((fileName.startsWith('main.') && fileName.endsWith('.js')) || fileName.endsWith('.css')) {
-                array.push(`/static/${path.relative(staticPathRoot, path.join(folderPath, fileName))}`);
-            }
-        });
-    });
-
-};
-
-// Populate the arrays with JS and CSS files
-readDirectoryContentToArray(`${staticPathRoot}/js`, bootstrapScripts);
-readDirectoryContentToArray(`${staticPathRoot}/css`, bootstrapCSS);
-
-app.get("/", (req, res) => {
-    res.socket.on("error", (error) => console.log("Fatal error occurred", error));
-
-    let didError = false;
-    const stream = ReactDOMServer.renderToPipeableStream(
-        <AppSSR bootStrapCSS={bootstrapCSS} />,
-        {
-            bootstrapScripts,
-            onShellReady: () => {
-                res.statusCode = didError ? 500 : 200;
-                res.setHeader("Content-Type", "text/html");
-                stream.pipe(res);
-            },
-            onError: (error) => {
-                didError = true;
-                console.log("Error", error);
-            }
-        }
+    // Server-side rendering
+    const appHTML = ReactDOMServer.renderToString(
+        <StaticRouter location={req.url} context={context}>
+            <App />
+        </StaticRouter>
     );
+
+    // Read the index.html file and inject the server-rendered app HTML
+    fs.readFile(path.join(staticPath, 'index.html'), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading index.html', err);
+            return res.status(500).send('Error reading index.html');
+        }
+
+        // Inject the rendered HTML into the div with id "root"
+        const htmlWithApp = data.replace(
+            '<div id="root"></div>',
+            `<div id="root">${appHTML}</div>`
+        );
+
+        res.status(200).send(htmlWithApp);
+    });
 });
 
-// Serve static files correctly
-app.use('/static', express.static(staticPathRoot));
-
-
-app.listen(port, () => console.log(`Node.js server running on port ${port}`));
+app.listen(port, () => {
+    console.log(`Node.js server running on port ${port}`);
+});

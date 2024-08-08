@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOMClient from 'react-dom/client';
-import './index.css';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import './index.css';
 
-// hydrate
-ReactDOMClient.hydrateRoot(document.getElementById("root"), <App />);
+ReactDOMClient.hydrateRoot(
+    document.getElementById('root'),
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>
+);

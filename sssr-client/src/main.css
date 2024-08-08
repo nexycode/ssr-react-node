@@ -1,0 +1,15 @@
+body {
+    background-color: bisque;
+}
+
+ul {
+    display: block;
+}
+
+ul li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid red;
+    background-color: beige;
+}
+

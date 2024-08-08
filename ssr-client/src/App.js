@@ -7,7 +7,6 @@ import Contact from './Contact';
 function App() {
     return (
         <div>
-            {/* Navigation Links */}
             <nav>
                 <ul>
                     <li><Link to="/">Home</Link></li>
@@ -15,8 +14,6 @@ function App() {
                     <li><Link to="/contact">Contact</Link></li>
                 </ul>
             </nav>
-
-            {/* Routes */}
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />

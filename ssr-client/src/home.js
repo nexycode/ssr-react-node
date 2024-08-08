@@ -1,14 +1,16 @@
-import "./main.css"
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
+
 const Home = () => {
-    return <div className="root">
-        <h2>Home</h2>
-        <ul>
-            <li>Hyonda</li>
-            <li>Yaris</li>
-            <li>Mercedes</li>
-            <li>Liqzez</li>
-        </ul>
-    </div>
-}
+    return (
+        <div>
+            <Helmet>
+                <title>Home Page</title>
+                <meta name="description" content="This is the home page description." />
+            </Helmet>
+            <h2>Home Page</h2>
+        </div>
+    );
+};
 
 export default Home;

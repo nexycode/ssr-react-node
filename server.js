@@ -37,6 +37,7 @@ const readDirectoryContentToArray = (folderPath, array) => {
 readDirectoryContentToArray(`${staticPathRoot}/js`, bootstrapScripts);
 readDirectoryContentToArray(`${staticPathRoot}/css`, bootstrapCSS);
 
+
 app.get('*', (req, res) => {
     const context = {};
     const helmetContext = {};
@@ -92,7 +93,12 @@ app.get('*', (req, res) => {
     });
 });
 
+app.get("/", (req, res) => {
+    return res.send("home page")
+})
+
 app.use('/static', express.static(staticPathRoot));
+
 
 app.listen(port, () => {
     console.log(`Node.js server running on port ${port}`);

@@ -1,18 +1,8 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import App from './App';
+import ReactDOM from 'react-dom';
+import Root from './route';
 
-function Root() {
-    return (
-        <BrowserRouter>
-            <HelmetProvider> 
-                <React.StrictMode>
-                    <App />
-                </React.StrictMode> 
-            </HelmetProvider>
-        </BrowserRouter>
-    );
-}
-
-export default Root;
+ReactDOM.hydrate(
+    <Root />,
+    document.getElementById('root')
+);

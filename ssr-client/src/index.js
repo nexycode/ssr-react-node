@@ -5,13 +5,13 @@ import App from './App';
 
 function Root() {
     return (
-        <HelmetProvider>
-            <BrowserRouter>
+        <BrowserRouter>
+            <HelmetProvider> 
                 <React.StrictMode>
                     <App />
-                </React.StrictMode>
-            </BrowserRouter>
-        </HelmetProvider>
+                </React.StrictMode> 
+            </HelmetProvider>
+        </BrowserRouter>
     );
 }
 

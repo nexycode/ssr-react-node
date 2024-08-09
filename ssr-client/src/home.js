@@ -1,9 +1,8 @@
-// Home.js
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
-    console.log('Rendering Home component');
+    console.log('Home component is rendering');  // Add this log to check if the component renders
     return (
         <div>
             <Helmet>

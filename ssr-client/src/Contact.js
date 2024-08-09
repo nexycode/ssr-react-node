@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-import "./main.css";
+
 
 const Contact = () => {
     return (

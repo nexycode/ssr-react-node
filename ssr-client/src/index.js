@@ -1,8 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Root from './route';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 
-ReactDOM.hydrate(
-    <Root />,
-    document.getElementById('root')
-);
+import Root from './route';
+const container = document.getElementById('root');
+
+
+if (container.hasChildNodes()) {
+    hydrateRoot(container, <Root />);
+} else {
+    createRoot(container).render(<Root />);
+}

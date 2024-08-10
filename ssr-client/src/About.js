@@ -3,6 +3,10 @@ import { Helmet } from 'react-helmet-async';
  
 
 const About = () => {
+
+    React.useEffect(() => {
+        console.log("UseEffect of About is working")
+    }, [])
     return (
         <>
         <Helmet>
